@@ -1,25 +1,30 @@
 
 require 'spec_helper'
  
-oses = @oses
-
 describe 'pam::pamd::debian' do
 
+  oses = {
+
+    'Debian' => {
+      :operatingsystem        => 'Debian',
+      :osfamily               => 'Debian',
+      :operatingsystemrelease => '7.0',
+      :lsbdistid              => 'Debian',
+      :lsbdistrelease         => '7.0',
+      :prefix_pamd            => '/etc/pam.d',
+    },
+
+  }
+  
   oses.keys.each do |os|
   
-    next if oses[os][:osfamily] != 'Debian'
- 
-    describe "Running on #{os} Release #{oses[os][:operatingsystemmajrelease]}" do
-
-      let(:facts) { { 
-        :osfamily                  => oses[os][:osfamily],
-        :operatingsystem           => oses[os][:operatingsystem],
-        :operatingsystemmajrelease => oses[os][:operatingsystemmajrelease],
-        :architecture              => oses[os][:architecture],
-      } }
- 
+    let(:facts) { { 
+      :operatingsystem        => oses[os][:operatingsystem],
+      :operatingsystemrelease => oses[os][:operatingsystemrelease],
+    } }
+  
+    describe "Running on #{os} Release #{oses[os][:operatingsystemrelease]}" do
       it { should include_class('pam::params')  }
-
     end
 
   end

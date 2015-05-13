@@ -12,7 +12,6 @@ describe 'pam::pamd' do
       :lsbdistid              => 'Debian',
       :lsbdistrelease         => '7.0',
       :prefix_pamd            => '/etc/pam.d',
-      :pamd_class             => 'pam::pamd::debian',
     },
 
     'Redhat' => {
@@ -22,18 +21,7 @@ describe 'pam::pamd' do
       :lsbdistid              => 'Redhat',
       :lsbdistrelease         => '5.0',
       :prefix_pamd            => '/etc/pam.d',
-      :pamd_class             => 'pam::pamd::redhat',
-    },
-
-    'CentOS' => {
-      :operatingsystem        => 'CentOS',
-      :osfamily               => 'Redhat',
-      :operatingsystemrelease => '5.0',
-      :lsbdistid              => 'CentOS',
-      :lsbdistrelease         => '5.0',
-      :prefix_pamd            => '/etc/pam.d',
-      :pamd_class             => 'pam::pamd::redhat',
-    },
+    }
 
   }
   
@@ -52,7 +40,7 @@ describe 'pam::pamd' do
         let(:params) { { 
           :pam_ldap  => true,
         } } 
-        it { should include_class(oses[os][:pamd_class]) }
+        it { should include_class("pam::pamd::#{os.downcase}") }
       end
 
     end

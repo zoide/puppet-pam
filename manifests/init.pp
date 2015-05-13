@@ -7,27 +7,25 @@
 #
 #  []
 #    **Required**
-#
+# 
 #  [enable_motd]
 #    Use motd to report the usage of this module.
 #    *Requires*: https://github.com/torian/puppet-motd.git
 #    *Optional* (defaults to false)
-#
+#    
 #  [ensure]
 #    *Optional* (defaults to 'present')
 #
 #
 # == Tested/Works on:
-#   - Debian: 5.0   / 6.0   / 7.0
-#   - Redhat: 5.x   / 6.x   /
-#   - CentOS: 5.x   / 6.x   /
+#   - Debian: 5.0   / 6.0   /
 #
 #
 # === Examples
 #
 # class { 'pam':
-#
-#
+#	
+#	
 # }
 #
 #
@@ -44,9 +42,9 @@
 class pam(
   $enable_motd = false,
   $ensure      = present) {
-
+  
   include pam::params
-
+  
   package { $pam::params::packages:
     ensure => $ensure
   }
@@ -55,7 +53,7 @@ class pam(
     ensure => present,
     owner  => $pam::params::owner,
     group  => $pam::params::group,
-    mode   => '0755',
+    mode   => 0755,
   }
 
 }

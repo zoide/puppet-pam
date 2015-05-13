@@ -1,14 +1,13 @@
-# == Class: pam::pamd::sles
-#
+
 class pam::pamd::sles {
 
   include pam::params
 
   File {
-    ensure => present,
     owner  => 'root',
     group  => 'root',
-    mode   => '0644'
+    mode   => 0644,
+    ensure => present
   }
 
   file { "${pam::params::prefix_pamd}/common-account-pc":
